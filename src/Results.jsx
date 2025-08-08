@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-
+import { Link } from "react-router-dom";
 function Results({ cat }) {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
@@ -40,24 +40,29 @@ function Results({ cat }) {
       {loading && <div className="loading">Loading...</div>}
       {error && <div className="error">Error: {error}</div>}
 
-      {!loading && data && data.length > 0 && (
+      {!loading &&
+        data &&
+        data.length > 0 &&
         data.map((emoji) => (
-          <section key={emoji.name} className="card">
-            <h1
-              className="emoji"
-              dangerouslySetInnerHTML={{
-                __html: emoji.htmlCode?.join("") || "",
-              }}
-            />
-            <p>Emoji Name: {emoji.name}</p>
-            <p>Category: {emoji.category}</p>
-          </section>
-        ))
-      )}
+          <Link
+            to={`/emoji/${encodeURIComponent(emoji.htmlCode.join(""))}`}
+            state={{ emoji }}
+            className="link-card-styling"
+          >
+            <section key={emoji.name} className="card">
+              <h1
+                className="emoji"
+                dangerouslySetInnerHTML={{
+                  __html: emoji.htmlCode?.join("") || "",
+                }}
+              />
+              <p>Emoji Name: {emoji.name}</p>
+              <p>Category: {emoji.category}</p>
+            </section>
+          </Link>
+        ))}
 
-      {!loading && data && data.length === 0 && (
-        <div>No emojis found.</div>
-      )}
+      {!loading && data && data.length === 0 && <div>No emojis found.</div>}
     </section>
   );
 }

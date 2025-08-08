@@ -5,24 +5,25 @@ import "./index.css";
 import Header from "./Header.jsx";
 import Home from "./pages/Home.jsx";
 import Footer from "./footer.jsx";
-import {BrowserRouter as Router,Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Emoji from "./pages/Emoji.jsx";
 
-// Wrapper component to manage shared state
 function AppWrapper() {
   const [selectedCategory, setSelectedCategory] = useState("");
+  const number = 1;
 
   return (
     <Router>
-    <>
       <Header onCategorySelect={setSelectedCategory} />
-      <Home cat={selectedCategory} />
+      <Routes>
+        <Route path="/" exact element={<Home cat={selectedCategory} />} />
+        <Route path="/emoji/:id" exact element={<Emoji />} />
+      </Routes>
       <Footer />
-    </>
     </Router>
   );
 }
 
-// Render it all
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AppWrapper />
