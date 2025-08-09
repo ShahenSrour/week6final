@@ -26,6 +26,19 @@ body {
   height: 100px;
   width: 100px;
 }
+.sort-button {
+  height: 50px;
+  width: 90%;
+  border-style: solid;
+  border-radius: 30px;
+  border-width: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px;
+  margin: 0 auto;
+}
+
 nav {
   width: 100%;
   max-width: 1200px;
