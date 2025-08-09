@@ -37,14 +37,15 @@ function Results({ cat }) {
     fetchData();
   }, [cat]);
 
-  let displayedData = data || [];
+  // Use safe check for data to avoid crashes on null
+  let displayedData = Array.isArray(data) ? data : [];
 
   if (sortOrder === "asc") {
-    displayedData = [...data].sort((a, b) =>
+    displayedData = [...displayedData].sort((a, b) =>
       a.name.toLowerCase().localeCompare(b.name.toLowerCase())
     );
   } else if (sortOrder === "desc") {
-    displayedData = [...data].sort((a, b) =>
+    displayedData = [...displayedData].sort((a, b) =>
       b.name.toLowerCase().localeCompare(a.name.toLowerCase())
     );
   }
@@ -72,7 +73,7 @@ function Results({ cat }) {
       {error && <div className="error">Error: {error}</div>}
 
       {!loading &&
-        data &&
+        displayedData.length > 0 &&
         displayedData.map((emoji) => (
           <Link
             key={emoji.htmlCode.join("")} // unique key for React
@@ -93,7 +94,7 @@ function Results({ cat }) {
           </Link>
         ))}
 
-      {!loading && data && data.length === 0 && <div>No emojis found.</div>}
+      {!loading && displayedData.length === 0 && <div>No emojis found.</div>}
     </section>
   );
 }
