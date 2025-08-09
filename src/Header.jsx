@@ -39,6 +39,7 @@ function Header({ onCategorySelect }) {
           </select>
           <button className="Submit" onClick={handleSubmit}>
             <span className="white">Submit</span>
+            <span className="text-icon">✓</span>
           </button>
         </div>
       </nav>
